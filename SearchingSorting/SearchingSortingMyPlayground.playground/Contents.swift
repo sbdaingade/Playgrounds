@@ -2,8 +2,6 @@ import UIKit
 
 var greeting = "Hello, playground"
 
-
-
 func reverseString (_ str: String) -> String? {
       
       guard str.count > 1 else { return str}
