@@ -45,11 +45,11 @@ listOfNodesA.append(5)
 
 
 let listOfNodesB = LinkedList<Int>()
-listOfNodesB.append(1)
-listOfNodesB.append(2)
-listOfNodesB.append(3)
-listOfNodesB.append(4)
-listOfNodesB.append(5)
+listOfNodesB.append(6)
+listOfNodesB.append(8)
+listOfNodesB.append(9)
+listOfNodesB.append(12)
+listOfNodesB.append(14)
 
 
 func mergeSortedLists<T: Comparable>(_ listA: LinkedList<T>, _ listB: LinkedList<T>) -> LinkedList<T> {
@@ -66,7 +66,16 @@ func mergeSortedLists<T: Comparable>(_ listA: LinkedList<T>, _ listB: LinkedList
             currentB = nodeB.next
         }
     }
-    mergedList.append(currentA?.value ?? currentB!.value)
+  
+    while let nodeA = currentA {
+        mergedList.append(nodeA.value)
+        currentA = nodeA.next
+    }
+    
+    while let nodeB = currentB {
+        mergedList.append(nodeB.value)
+        currentB = nodeB.next
+    }
 
     return mergedList
 }
