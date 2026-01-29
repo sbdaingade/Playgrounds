@@ -12,7 +12,7 @@ class Node<T> {
     }
 }
 
-class LinkedList<T> {
+class LinkedList<T: Comparable> {
     var head: Node<T>?
     var tail: Node<T>?
     
@@ -33,19 +33,39 @@ class LinkedList<T> {
             currentNode = node.next
         }
     }
+    
+    func sortLinkeList() {
+        var currentNode = head
+        var values = [T]()
+        
+        while let node = currentNode {
+            values.append(node.value)
+            currentNode = node.next
+        }
+        values.sort()
+
+        currentNode = head
+        var index = 0
+        while let node = currentNode {
+            node.value = values[index]
+            currentNode = node.next
+            index += 1
+        }
+    }
 }
 
 let listOfNodesA = LinkedList<Int>()
 listOfNodesA.append(1)
-listOfNodesA.append(2)
 listOfNodesA.append(3)
+listOfNodesA.append(6)
+listOfNodesA.append(2)
 listOfNodesA.append(4)
-listOfNodesA.append(5)
-//listOfNodesA.printList()
+listOfNodesA.sortLinkeList()
+listOfNodesA.printList()
 
 
 let listOfNodesB = LinkedList<Int>()
-listOfNodesB.append(6)
+listOfNodesB.append(5)
 listOfNodesB.append(8)
 listOfNodesB.append(9)
 listOfNodesB.append(12)
