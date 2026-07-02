@@ -6,49 +6,58 @@ private var arrFP = [1, 2, 3, 4, 5, 6, 7, 8, 0]
 private var arrPrivate = [1, 2, 3, 4, 5, 6, 7, 8, 0]
 let data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-let bookData = [ "book1": 127, "book2": 150, "book3": 289, "book4": 190, "book5": 950]
+let bookData = [
+    "book1": 127, "book2": 150, "book3": 289, "book4": 190, "book5": 950,
+]
 
 // MARK:  MAP
+/// Transforms every element in a collection using a given closure and returns a new array containing the transformed elements.
+
 let mapedData = bookData.map({ (key, value) in return value + 40 })
 print(mapedData)
 
 // MARK:  Filter
+/// Loops through a collection and returns a new array containing only the elements that satisfy a specific Bool condition.
 
 let filterData = bookData.filter({ (key, value) in return value < 200 })
 print(filterData)
 
 let alphaN = "A!bb1a"
-let alhpabetic = alphaN.filter{ $0.isLetter }
+let alhpabetic = alphaN.filter { $0.isLetter }
 print(alhpabetic)
 
 // MARK:  Reduce
+/// Combines all elements of a collection into a single, unified value by repeatedly invoking a closure.
 
 let reducedData = data.reduce(0, { sum, number in return sum + number })
 let returnSingleValue = data.reduce(0, { $0 + $1 })
 let str = "SACHIN"
-let reverseString = str.reduce("") {"\($1)\($0)"}
+let reverseString = str.reduce("") { "\($1)\($0)" }
 print(reducedData)
 print(returnSingleValue)
 print(reverseString)
 
 //MARK: compactMap
+/// Transforms elements just like map, but safely removes any nil values from the resulting array.
+
 let cMapdata = [1, nil, 3, 4, 5, 6, 7, nil, 9, 10]
 let cMap = cMapdata.compactMap({ return $0 })
 print(cMap)
 
 //MARK: flatMap
+/// Flattens a collection of collections (like an array of arrays) into a single, continuous array.
+
 let flatMappedData = "sachin"
-let characters = flatMappedData.flatMap{ $0 }
+let characters = flatMappedData.flatMap { $0 }
 print(characters)
 
 let nestedNumbers = [[1, 2], [3, 4], [5]]
 let flattened = nestedNumbers.flatMap { $0 }
 print(flattened)
 
-
 //MARK: compactMapValues
 // ComapctMapValues for Dictionary Swift 5.0
-let cDict = bookData.compactMapValues{ $0 }
+let cDict = bookData.compactMapValues { $0 }
 print(cDict)
 
 //MARK:  Sorted
@@ -66,15 +75,14 @@ debugPrint(descending)
 numbers.sort()
 debugPrint(numbers)
 
-
 //MARK:  Function Chaining
 /// One of the major benefits of higher-order functions is that you can chain them together sequentially to perform complex data mutations in a single, readable line of code.
-
 
 let nestedScores = [[10, nil, 30], [40, 50]]
 
 // Flatten, remove nils, and get total sum
-let totalScore = nestedScores
+let totalScore =
+    nestedScores
     .flatMap { $0 }
     .compactMap { $0 }
     .reduce(0, +)
@@ -83,8 +91,8 @@ debugPrint(totalScore)
 
 //MARK:  Zip
 /// Creates a sequence of pairs built out of two underlying sequences.
-let A1 = [1,2,3,4]
-let A2 = [5,6,7,8]
+let A1 = [1, 2, 3, 4]
+let A2 = [5, 6, 7, 8]
 
 let zipResult = zip(A1, A2).map(+)
 debugPrint(zipResult)
@@ -101,24 +109,72 @@ for (name, score) in zip(names, scores) {
 //MARK:  contains:
 /// Returns a boolean indicating whether the sequence contains an element that satisfies a specific condition.
 ///
+let message = "This is Swift Programming"
+let hasSwift = message.contains("Swift")  // true
+debugPrint(hasSwift)
+
+let fruits = ["Apples", "Peaches", "Plums"]
+let hasApples = fruits.contains("Apples")  // true
+debugPrint(hasApples)
+
+///
 //MARK: first(where:) / last(where:):
 /// Iterates through a collection and returns the first or last element that matches a given predicate.
-///
+
+let allNumbers = [3, 7, 4, -2, 9, -6, 10, 1]
+
+if let firstNegative = allNumbers.first(where: { $0 < 0 }) {
+    print("The first negative number is \(firstNegative).")
+} else {
+    print("No negative numbers found.")
+}
+// Prints: "The first negative number is -2."
+if let lastNegative = allNumbers.last(where: { $0 < 0 }) {
+    print("The last negative number is \(lastNegative).")
+}
+
 //MARK: forEach:
 /// Iterates over a sequence and executes the given closure on each element. (Note: Unlike a standard for...in loop, you cannot use break or continue inside forEach).
-///
+
+let platforms = ["iOS", "macOS", "watchOS"]
+platforms.forEach { platform in
+    print("Targeting: \(platform)")
+}
+
 //MARK: allSatisfy:
 // Returns a boolean indicating whether every element in a sequence satisfies a given predicate.
+
+let allEvenNumbers = [2, 4, 6, 8, 10]
+// Check if all numbers in the array are even
+let allEven = allEvenNumbers.allSatisfy { $0 % 2 == 0 }
+
+print(allEven)  // Output: true
 
 //MARK: prefix(while:):
 /// Returns a sequence containing the initial elements that satisfy a given predicate, stopping as soon as an element fails the condition.
 
+let positivePrefixNumbers = [3, 7, 4, -2, 9, -6, 10, 1]
+let positivePrefix = positivePrefixNumbers.prefix(while: { $0 > 0 })
+
+print(positivePrefix)
+// Output: [3, 7, 4]
+
 //MARK: drop(while:):
 ///Returns a sequence containing all elements after the initial ones that fail a given predicate condition.
+
+let droppednumbers = [10, 20, 30, 40, 5, 60]
+let dropped = droppednumbers.drop(while: { $0 < 35 })
+
+print(dropped)
+// Output: [40, 5, 60]
 
 //MARK: split:
 ///Splits a collection into slices, separated by elements that match a given predicate.
 
+let sentence = "Swift is great"
+let words = sentence.split(separator: " ")
+// Returns: ["Swift", "is", "great"] (as Substrings)
+print(words)
 
 /*
 
