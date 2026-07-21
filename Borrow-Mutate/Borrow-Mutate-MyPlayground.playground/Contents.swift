@@ -22,16 +22,16 @@ struct CopyingBox {
         self.storage = value
     }
     // MARK: Problem
-    var value: Storage {
-        get {storage }
-        set {storage = newValue}
-    }
+//    var value: Storage {
+//        get {storage }
+//        set {storage = newValue}
+//    }
     // MARK: Solutions
     
-//    var value: Storage {
-//        borrow { storage }
-//        mutate { &storage }
-//    }
+    var value: Storage {
+        borrow { storage }
+        mutate { &storage }
+    }
     
 }
 
@@ -42,7 +42,8 @@ var copyingBox = CopyingBox(Storage(elementCount: elementCount))
 
 let clock = ContinuousClock()
 let getSetTime = clock.measure {
-    testGetSet(&copyingBox, iterations: iterations)
+    //testGetSet(&copyingBox, iterations: iterations)
+testGetSet(&copyingBox, iterations: iterations)
 }
 print("Execution time: \(getSetTime)")
 // output : Execution time: 2.152576375 seconds
